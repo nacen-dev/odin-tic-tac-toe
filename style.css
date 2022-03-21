@@ -13,7 +13,7 @@ html {
 }
 
 body {
-  background-color: #1e40af;
+  background-color: #047857;
 }
 
 .header {
@@ -44,7 +44,7 @@ body {
 }
 
 .content .gameboard {
-  background-color: #bae6fd;
+  background-color: #fff;
   width: 500px;
   height: 500px;
   display: -ms-grid;
@@ -53,5 +53,19 @@ body {
       grid-template-columns: repeat(3, 1fr);
   -ms-grid-rows: (1fr)[3];
       grid-template-rows: repeat(3, 1fr);
+}
+
+.content .gameboard .gameboard-cell {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 2rem;
+  border: 1px solid #0f172a;
 }
 /*# sourceMappingURL=style.css.map */
