@@ -31,6 +31,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 90vh;
+  flex-direction: column;
 
   .gameboard {
     background-color: $white;
