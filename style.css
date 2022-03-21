@@ -53,6 +53,7 @@ body {
       grid-template-columns: repeat(3, 1fr);
   -ms-grid-rows: (1fr)[3];
       grid-template-rows: repeat(3, 1fr);
+  margin: 10px;
 }
 
 .content .gameboard .gameboard-cell {
