@@ -1,6 +1,7 @@
 $emerald-700: #047857;
 $white: #fff;
 $slate-900: #0f172a;
+$sky-500: #0EA5E9;
 
 html {
   box-sizing: border-box;
@@ -26,17 +27,104 @@ body {
   color: $white;
 }
 
+.button {
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  border: none;
+  cursor: pointer;
+}
+
 .content {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 90vh;
+  height: 100%;
   flex-direction: column;
+
+  .menu {
+    background-color: $white;
+    max-width: 70%;
+    border-radius: 5px;
+    margin: 0 auto;
+    display: grid;
+    padding: 1rem;
+    grid-template-columns: 1fr minmax(auto, 0.5fr) 1fr;
+    gap: 1.5rem 1rem;
+
+    .player-name {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+
+      label {
+        font-size: 1.2rem;
+      }
+
+      input[type="text"] {
+        padding: 5px;
+        font-size: 1rem;
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    .versus-text-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .versus-text {
+        font-size: 2rem;
+      }
+    }
+
+    .menu-control {
+      grid-column: span 3;
+      justify-self: center;
+    }
+
+    .menu-start {
+      background-color: $emerald-700;
+      color: $white;
+    }
+  }
+
+  .player-name-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 10px;
+    margin-bottom: 20px;
+    background-color: $white;
+    border-radius: 5px;
+
+    .player-one, .player-two {
+      font-size: 1.2rem;
+      padding: 1rem;
+      text-align: center;
+    }
+    .player-one {
+      border-right: 1px solid #000;
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .winner-display-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .winner-display {
+      font-size: 1.5rem;
+      color: $white;
+    }
+  }
 
   .gameboard {
     background-color: $white;
-    width: 500px;
-    height: 500px;
+    width: 400px;
+    height: 400px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
@@ -50,4 +138,13 @@ body {
       border: 1px solid $slate-900;
     }
   }
+}
+
+.hidden {
+  display: none;
+}
+
+.current-player {
+  background-color: #0EA5E9;
+  color: $white;
 }
