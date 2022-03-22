@@ -210,7 +210,7 @@ body {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .current-player {

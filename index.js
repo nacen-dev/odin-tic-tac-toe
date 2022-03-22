@@ -26,11 +26,16 @@ const Player = (name) => {
 
   turn = false;
 
+  const resetScore = () => {
+    score = 0;
+  };
+
   return {
     name,
     getScore,
     incrementScore,
     turn,
+    resetScore,
   };
 };
 
@@ -94,6 +99,12 @@ const gameBoard = (() => {
       : false;
   };
 
+  const checkIfDraw = () => {
+    return board.every((boardCell) => {
+      if (boardCell) return boardCell;
+    });
+  };
+
   const resetBoard = () => {
     board = board.map((boardItem) => null);
   };
@@ -104,6 +115,7 @@ const gameBoard = (() => {
     checkGameWinner,
     BOARD_SIZE,
     resetBoard,
+    checkIfDraw,
   };
 })();
 
@@ -141,6 +153,11 @@ const displayController = ((
     }
   };
 
+  const resetPlayerTurn = (playerOne, playerTwo) => {
+    playerOne.turn = true;
+    playerTwo.turn = false;
+  };
+
   const setScore = () => {
     if (PlayerOne.turn) {
       PlayerOne.incrementScore();
@@ -158,10 +175,14 @@ const displayController = ((
     }`;
   };
 
-  const setWinnerDisplay = () => {
-    winnerDisplay.textContent = PlayerOne.turn
-      ? `${PlayerOne.name} WIN!`
-      : `${PlayerTwo.name} WIN!`;
+  const setWinnerDisplay = (winner) => {
+    if (winner) {
+      winnerDisplay.textContent = PlayerOne.turn
+        ? `${PlayerOne.name} WIN!`
+        : `${PlayerTwo.name} WIN!`;
+    } else {
+      winnerDisplay.textContent = "It's a Draw";
+    }
   };
 
   const resetWinnerDisplay = () => {
@@ -185,7 +206,7 @@ const displayController = ((
         event.target.textContent = value;
 
         if (checkGameWinner(value)) {
-          setWinnerDisplay();
+          setWinnerDisplay(true);
           setScore();
           setScoreInDisplay();
           return;
@@ -193,6 +214,10 @@ const displayController = ((
 
         setPlayerTurn(PlayerOne, PlayerTwo);
         setActivePlayerDisplay(PlayerOne, PlayerTwo);
+      }
+
+      if (gameBoard.checkIfDraw()) {
+        setWinnerDisplay(false);
       }
     });
   };
@@ -219,9 +244,13 @@ const displayController = ((
   };
 
   const gameStart = () => {
-    console.log("start game");
-    menu.className = "hidden";
+    menu.classList.add("hidden");
     gameArea.classList.remove("hidden");
+  };
+
+  const hideGameArea = () => {
+    gameArea.classList.add("hidden");
+    menu.classList.remove("hidden");
   };
 
   const resetBoardDisplay = () => {
@@ -241,6 +270,8 @@ const displayController = ((
     setScoreInDisplay,
     resetBoardDisplay,
     resetWinnerDisplay,
+    hideGameArea,
+    resetPlayerTurn,
   };
 })(gameBoard, menu, playerOneText, playerTwoText);
 
@@ -257,9 +288,17 @@ gameStartButton.addEventListener("click", () => {
 
 playAgainButton.addEventListener("click", () => {
   gameBoard.resetBoard();
-  console.log(gameBoard.getBoard());
   displayController.resetBoardDisplay();
   displayController.resetWinnerDisplay();
+  displayController.resetPlayerTurn(PlayerOne, PlayerTwo);
 });
 
-gameRestartButton.addEventListener("click", () => {});
+gameRestartButton.addEventListener("click", () => {
+  PlayerOne.resetScore();
+  PlayerTwo.resetScore();
+  gameBoard.resetBoard();
+  displayController.resetBoardDisplay();
+  displayController.resetWinnerDisplay();
+  displayController.hideGameArea();
+  displayController.resetPlayerTurn(PlayerOne, PlayerTwo);
+});
