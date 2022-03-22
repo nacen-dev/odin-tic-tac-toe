@@ -1,4 +1,3 @@
-const BOARD_SIZE = 9;
 let currentPlayer = 1;
 
 const winnerDisplay = document.querySelector(".winner-display");
@@ -8,6 +7,10 @@ const gameArea = document.querySelector(".game-area");
 const gameStartButton = document.querySelector(".menu-start");
 const playerOneText = document.querySelector(".player-one");
 const playerTwoText = document.querySelector(".player-two");
+const playerOneScore = document.querySelector(".player-one-score");
+const playerTwoScore = document.querySelector(".player-two-score");
+const playAgainButton = document.querySelector(".game-play-again");
+const gameRestartButton = document.querySelector(".game-restart");
 
 const Player = (name) => {
   let score = 0;
@@ -35,7 +38,10 @@ const PlayerOne = Player("Player 1");
 const PlayerTwo = Player("Player 2");
 
 const gameBoard = (() => {
-  const board = new Array(BOARD_SIZE);
+  const BOARD_SIZE = 9;
+
+  let board = new Array(BOARD_SIZE);
+  board.fill(null);
 
   const getBoard = () => board;
 
@@ -88,20 +94,29 @@ const gameBoard = (() => {
       : false;
   };
 
+  const resetBoard = () => {
+    board = board.map((boardItem) => null);
+  };
+
   return {
     getBoard,
     setBoardItem,
     checkGameWinner,
+    BOARD_SIZE,
+    resetBoard,
   };
 })();
 
-const displayController = ((gameBoard, menu, playerOne, playerTwo) => {
+const displayController = ((
+  gameBoard,
+  menu,
+  playerOneElement,
+  playerTwoElement
+) => {
   const { getBoard, setBoardItem, checkGameWinner } = gameBoard;
 
-  const board = getBoard();
-
   const renderBoard = () => {
-    for (let i = 0; i < BOARD_SIZE; i++) {
+    for (let i = 0; i < gameBoard.BOARD_SIZE; i++) {
       gameBoardElement.appendChild(createGameBoardCell(i));
     }
   };
@@ -126,6 +141,33 @@ const displayController = ((gameBoard, menu, playerOne, playerTwo) => {
     }
   };
 
+  const setScore = () => {
+    if (PlayerOne.turn) {
+      PlayerOne.incrementScore();
+    } else if (PlayerTwo.turn) {
+      PlayerTwo.incrementScore();
+    }
+  };
+
+  const setScoreInDisplay = () => {
+    playerOneScore.textContent = `${PlayerOne.name}'s Score: ${
+      PlayerOne.getScore() ? PlayerOne.getScore() : 0
+    }`;
+    playerTwoScore.textContent = `${PlayerTwo.name}'s Score: ${
+      PlayerTwo.getScore() ? PlayerTwo.getScore() : 0
+    }`;
+  };
+
+  const setWinnerDisplay = () => {
+    winnerDisplay.textContent = PlayerOne.turn
+      ? `${PlayerOne.name} WIN!`
+      : `${PlayerTwo.name} WIN!`;
+  };
+
+  const resetWinnerDisplay = () => {
+    winnerDisplay.textContent = "";
+  };
+
   const markBoardCellEvent = (gameBoardCell) => {
     const index = gameBoardCell.dataset.index;
 
@@ -136,14 +178,16 @@ const displayController = ((gameBoard, menu, playerOne, playerTwo) => {
         return;
       }
 
+      const board = getBoard();
+
       if (!board[index]) {
         setBoardItem(index, value);
         event.target.textContent = value;
 
         if (checkGameWinner(value)) {
-          winnerDisplay.textContent = PlayerOne.turn
-            ? `${PlayerOne.name} WIN!`
-            : `${PlayerTwo.name} WIN!`;
+          setWinnerDisplay();
+          setScore();
+          setScoreInDisplay();
           return;
         }
 
@@ -170,14 +214,21 @@ const displayController = ((gameBoard, menu, playerOne, playerTwo) => {
   };
 
   const setPlayerNameInDisplay = () => {
-    playerOne.textContent = PlayerOne.name;
-    playerTwo.textContent = PlayerTwo.name;
+    playerOneElement.textContent = PlayerOne.name;
+    playerTwoElement.textContent = PlayerTwo.name;
   };
 
   const gameStart = () => {
     console.log("start game");
     menu.className = "hidden";
     gameArea.classList.remove("hidden");
+  };
+
+  const resetBoardDisplay = () => {
+    let gameBoardCells = document.querySelectorAll(".gameboard-cell");
+    gameBoardCells.forEach((gameBoardCell) => {
+      gameBoardCell.textContent = "";
+    });
   };
 
   return {
@@ -187,6 +238,9 @@ const displayController = ((gameBoard, menu, playerOne, playerTwo) => {
     setPlayerNameInDisplay,
     setPlayerTurn,
     setActivePlayerDisplay,
+    setScoreInDisplay,
+    resetBoardDisplay,
+    resetWinnerDisplay,
   };
 })(gameBoard, menu, playerOneText, playerTwoText);
 
@@ -197,5 +251,15 @@ gameStartButton.addEventListener("click", () => {
   displayController.getPlayerNamesFromDisplay();
   displayController.setPlayerNameInDisplay();
   displayController.setPlayerTurn(PlayerOne, PlayerTwo);
+  displayController.setScoreInDisplay();
   displayController.setActivePlayerDisplay(PlayerOne, PlayerTwo);
 });
+
+playAgainButton.addEventListener("click", () => {
+  gameBoard.resetBoard();
+  console.log(gameBoard.getBoard());
+  displayController.resetBoardDisplay();
+  displayController.resetWinnerDisplay();
+});
+
+gameRestartButton.addEventListener("click", () => {});

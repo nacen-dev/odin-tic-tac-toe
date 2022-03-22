@@ -1,7 +1,8 @@
 $emerald-700: #047857;
 $white: #fff;
 $slate-900: #0f172a;
-$sky-500: #0EA5E9;
+$sky-500: #0ea5e9;
+$red-500: #ef4444;
 
 html {
   box-sizing: border-box;
@@ -20,11 +21,11 @@ body {
 }
 
 .header {
-  height: 10vh;
   display: flex;
   justify-content: center;
   align-items: center;
   color: $white;
+  margin-bottom: 20px;
 }
 
 .button {
@@ -36,12 +37,6 @@ body {
 }
 
 .content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  flex-direction: column;
-
   .menu {
     background-color: $white;
     max-width: 70%;
@@ -91,15 +86,20 @@ body {
     }
   }
 
+  .game-area {
+    width: 70%;
+    margin: 0 auto;
+  }
+
   .player-name-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    margin: 10px;
     margin-bottom: 20px;
     background-color: $white;
     border-radius: 5px;
 
-    .player-one, .player-two {
+    .player-one,
+    .player-two {
       font-size: 1.2rem;
       padding: 1rem;
       text-align: center;
@@ -115,6 +115,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 10px;
+
     .winner-display {
       font-size: 1.5rem;
       color: $white;
@@ -123,12 +125,11 @@ body {
 
   .gameboard {
     background-color: $white;
-    width: 400px;
-    height: 400px;
+    height: 300px;
+    margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    margin: 10px;
 
     .gameboard-cell {
       display: flex;
@@ -138,6 +139,37 @@ body {
       border: 1px solid $slate-900;
     }
   }
+
+  .score-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 1rem;
+    justify-items: center;
+
+    .player-score {
+      p {
+        font-size: 1.2rem;
+        color: $white;
+      }
+    }
+  }
+
+  .game-controls {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+
+    .game-play-again {
+      background-color: $sky-500;
+      color: $white;
+    }
+
+    .game-restart {
+      background-color: $red-500;
+      color: $white;
+    }
+  }
 }
 
 .hidden {
@@ -145,6 +177,6 @@ body {
 }
 
 .current-player {
-  background-color: #0EA5E9;
+  background-color: #0ea5e9;
   color: $white;
 }

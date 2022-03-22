@@ -17,7 +17,6 @@ body {
 }
 
 .header {
-  height: 10vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -28,6 +27,7 @@ body {
       -ms-flex-align: center;
           align-items: center;
   color: #fff;
+  margin-bottom: 20px;
 }
 
 .button {
@@ -36,23 +36,6 @@ body {
   font-size: 1.2rem;
   border: none;
   cursor: pointer;
-}
-
-.content {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  height: 100%;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
 }
 
 .content .menu {
@@ -121,18 +104,23 @@ body {
   color: #fff;
 }
 
+.content .game-area {
+  width: 70%;
+  margin: 0 auto;
+}
+
 .content .player-name-container {
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 1fr 1fr;
       grid-template-columns: 1fr 1fr;
-  margin: 10px;
   margin-bottom: 20px;
   background-color: #fff;
   border-radius: 5px;
 }
 
-.content .player-name-container .player-one, .content .player-name-container .player-two {
+.content .player-name-container .player-one,
+.content .player-name-container .player-two {
   font-size: 1.2rem;
   padding: 1rem;
   text-align: center;
@@ -154,6 +142,7 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  margin: 10px;
 }
 
 .content .winner-display-container .winner-display {
@@ -163,15 +152,14 @@ body {
 
 .content .gameboard {
   background-color: #fff;
-  width: 400px;
-  height: 400px;
+  height: 300px;
+  margin: 0 auto;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: (1fr)[3];
       grid-template-columns: repeat(3, 1fr);
   -ms-grid-rows: (1fr)[3];
       grid-template-rows: repeat(3, 1fr);
-  margin: 10px;
 }
 
 .content .gameboard .gameboard-cell {
@@ -188,12 +176,45 @@ body {
   border: 1px solid #0f172a;
 }
 
+.content .score-container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  margin: 1rem;
+  justify-items: center;
+}
+
+.content .score-container .player-score p {
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.content .game-controls {
+  margin-top: 20px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.content .game-controls .game-play-again {
+  background-color: #0ea5e9;
+  color: #fff;
+}
+
+.content .game-controls .game-restart {
+  background-color: #ef4444;
+  color: #fff;
+}
+
 .hidden {
   display: none;
 }
 
 .current-player {
-  background-color: #0EA5E9;
+  background-color: #0ea5e9;
   color: #fff;
 }
 /*# sourceMappingURL=style.css.map */
