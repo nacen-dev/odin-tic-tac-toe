@@ -40,7 +40,7 @@ body {
 
 .content .menu {
   background-color: #fff;
-  max-width: 70%;
+  max-width: 60%;
   border-radius: 5px;
   margin: 0 auto;
   display: -ms-grid;
@@ -216,5 +216,11 @@ body {
 .current-player {
   background-color: #0ea5e9;
   color: #fff;
+}
+
+@media screen and (max-width: 450px) {
+  .content .menu {
+    max-width: 90%;
+  }
 }
 /*# sourceMappingURL=style.css.map */
